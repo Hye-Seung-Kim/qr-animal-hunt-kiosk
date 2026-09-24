@@ -1,0 +1,403 @@
+.start-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+  color: #f4f4f5;
+  background: radial-gradient(circle at 50% 30%, #1e293b, #0c1420 70%);
+}
+
+.start-screen h1 {
+  font-size: clamp(2.2rem, 8vw, 3rem);
+  margin: 0;
+}
+
+.start-screen p {
+  margin: 0 0 12px;
+  color: #a1a1aa;
+  font-size: 1.05rem;
+}
+
+.primary-button {
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 16px 40px;
+  border-radius: 999px;
+  border: none;
+  background: #4ade80;
+  color: #0c1420;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.primary-button:active {
+  transform: scale(0.97);
+}
+
+.game-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+.camera-view {
+  position: absolute;
+  inset: 0;
+}
+
+.camera-video,
+.animal-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.animal-overlay {
+  pointer-events: none;
+}
+
+.hud-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: max(12px, env(safe-area-inset-top)) 16px 12px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
+  color: #fff;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.hud-title {
+  font-size: 1.1rem;
+}
+
+.hud-count {
+  font-size: 0.95rem;
+  color: #d1fae5;
+}
+
+.hud-count-urgent {
+  /* Static color only -- animating this text's opacity caused a rendering
+     glitch on some mobile browsers where the previous digit stayed visible,
+     ghosted behind the new one, because the text content changes every
+     250ms while the animation is mid-fade. The pulsing red vignette below
+     already carries the "urgent" feel. */
+  color: #fca5a5;
+}
+
+.urgent-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(220, 38, 38, 0) 40%,
+    rgba(220, 38, 38, 0.65) 100%
+  );
+  animation: urgent-flash-pulse 0.6s ease-in-out infinite;
+}
+
+@keyframes urgent-flash-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+.hud-bottom {
+  position: absolute;
+  bottom: calc(72px + env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #e4e4e7;
+  font-size: 0.9rem;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+.hud-toast {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(12, 20, 32, 0.85);
+  border: 1px solid rgba(74, 222, 128, 0.6);
+  color: #fef9c3;
+  padding: 12px 20px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  pointer-events: none;
+  animation: toast-in 0.25s ease-out;
+  max-width: 80vw;
+}
+
+.hud-toast-unknown {
+  border-color: rgba(161, 161, 170, 0.6);
+  color: #d4d4d8;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, -8px) scale(0.95); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+.text-input {
+  font-size: 1.05rem;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid #3f3f46;
+  background: #18181b;
+  color: #f4f4f5;
+  width: min(80vw, 280px);
+  text-align: center;
+}
+
+.text-input:focus {
+  outline: 2px solid #4ade80;
+}
+
+.secondary-button {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: 1px solid #52525b;
+  background: transparent;
+  color: #f4f4f5;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.room-choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.room-choice-divider {
+  color: #71717a;
+  font-size: 0.85rem;
+}
+
+.chosen-username {
+  color: #d4d4d8;
+  font-size: 0.95rem;
+  margin: 0 0 4px;
+}
+
+.chosen-username strong {
+  color: #f4f4f5;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #4ade80;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.landing-error {
+  color: #fca5a5;
+  font-size: 0.9rem;
+}
+
+.room-code-label {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #71717a;
+}
+
+.room-code-value {
+  margin: 0 0 12px;
+  font-size: clamp(2.6rem, 12vw, 3.6rem);
+  letter-spacing: 0.1em;
+  color: #4ade80;
+}
+
+.player-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 1.1rem;
+}
+
+.player-offline {
+  opacity: 0.4;
+}
+
+.host-crown {
+  color: #fde68a;
+  font-size: 0.8rem;
+}
+
+.round-target-banner {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+.round-target-emoji {
+  font-size: 2rem;
+}
+
+.countdown-overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0c1420;
+}
+
+.countdown-number {
+  font-size: 6rem;
+  font-weight: 800;
+  color: #4ade80;
+}
+
+.leaderboard-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: min(85vw, 320px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leaderboard-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.leaderboard-row-me {
+  border: 1px solid #4ade80;
+  background: rgba(74, 222, 128, 0.1) !important;
+}
+
+.leaderboard-rank {
+  min-width: 28px;
+  font-weight: 700;
+}
+
+.leaderboard-name {
+  flex: 1;
+  text-align: left;
+}
+
+.leaderboard-wins {
+  color: #a1a1aa;
+  font-size: 0.9rem;
+}
+
+.result-winner {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fde68a;
+}
+
+.error-banner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(88vw, 360px);
+  background: rgba(127, 29, 29, 0.92);
+  color: #fee2e2;
+  padding: 20px;
+  border-radius: 14px;
+  text-align: center;
+  font-size: 0.95rem;
+  z-index: 10;
+}
+
+.exit-button {
+  position: absolute;
+  left: max(16px, env(safe-area-inset-left));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 8;
+  background: rgba(0, 0, 0, 0.55);
+  color: #f4f4f5;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.animal-picker {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: min(90vw, 380px);
+}
+
+.animal-picker-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 10px;
+  border-radius: 14px;
+  border: 1px solid #3f3f46;
+  background: #18181b;
+  color: #f4f4f5;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.animal-picker-card:active {
+  transform: scale(0.97);
+}
+
+.animal-picker-emoji {
+  font-size: 2.2rem;
+}
+
+.animal-picker-name {
+  font-weight: 700;
+}
+
+.animal-picker-best {
+  font-size: 0.75rem;
+  color: #a1a1aa;
+}
